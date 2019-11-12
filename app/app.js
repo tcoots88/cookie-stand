@@ -80,7 +80,7 @@ var Lima = {
   }
 
 };
-function getSalesData(location) {
+function pullRandomCustInfo(location) {
   for (var i = 0; i < time.length; i++) {
     var numCookies = Math.ceil(location.cookieGenie() * location.cookiesPerCust);
     location.sales[i] = time[i] + numCookies + ' cookies';
@@ -98,11 +98,11 @@ function displayData(location) {
     li.textContent = location.sales[i];
   }
 }
-getSalesData(Seattle);
-getSalesData(Tokyo);
-getSalesData(Dubai);
-getSalesData(Paris);
-getSalesData(Lima);
+pullRandomCustInfo(Seattle);
+pullRandomCustInfo(Tokyo);
+pullRandomCustInfo(Dubai);
+pullRandomCustInfo(Paris);
+pullRandomCustInfo(Lima);
 
 displayData(Seattle);
 displayData(Tokyo);
