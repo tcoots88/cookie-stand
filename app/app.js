@@ -73,7 +73,6 @@ Store.prototype.getTotalSales = function () {
   return totalSales;
 };
 
-
 generateHeader();
 place.push(new Store('Seattle', 23, 65, 6.3));
 place.push(new Store('Tokyo', 3, 24, 1.2));
