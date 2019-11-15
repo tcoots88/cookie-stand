@@ -3,6 +3,9 @@ var time = ['6:00 am: ', '7:00 am: ', '8:00 am: ', '9:00 am: ', '10:00 am: ', '1
 var place = [];
 var container = document.getElementById('container');
 
+//////////////
+
+
 function generateHeader() {
   var headerRow = addElement('tr', container);
   addElement('th', headerRow);
