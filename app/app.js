@@ -2,6 +2,39 @@
 var time = ['6:00 am: ', '7:00 am: ', '8:00 am: ', '9:00 am: ', '10:00 am: ', '11:00 am: ', '12:00 pm: ', '1:00 pm: ', '2:00 pm: ', '3:00 pm: ', '4:00 pm: ', '5:00 pm: ', '6:00 pm: ', '7:00 pm: ', 'Total by Location'];
 var place = [];
 var container = document.getElementById('container');
+///////// trying to put in addstore funciton
+var form = document.getElementById('addStoreForm');
+
+function NewStore(storeInfo, minDaily, maxDaily, avgSalesPerCust) {
+  this.nameOfStore = storeInfo;
+  this.minGuestCount = minDaily;
+  this.maxGuestCount = maxDaily;
+  this.avgPerCust = avgSalesPerCust;
+}
+
+NewStore.counter = 0;
+/// Perhaps a separate prototype for each set of data??
+NewStore.prototype.render = function () {
+  var tbody = document.getElementById('storeInfo');
+  var row = document.createElement('tr');
+  tbody.appendChild(row);
+
+  var nameTD = document.createElement('td');
+  row.appendChild(nameTD);
+  nameTD.textContent = this.name;
+
+  var rankTD = document.createElement('td');
+  row.appendChild(rankTD);
+  rankTD.textContent = this.rank;
+};
+
+function submitHandler() {
+  event.preventDefault();
+  console.log('INPUT NAME : ', event.target);
+  console.log('event.target');
+}
+
+form.addEventListener('submit', submitHandler);
 
 //////////////
 
