@@ -2,42 +2,22 @@
 var time = ['6:00 am: ', '7:00 am: ', '8:00 am: ', '9:00 am: ', '10:00 am: ', '11:00 am: ', '12:00 pm: ', '1:00 pm: ', '2:00 pm: ', '3:00 pm: ', '4:00 pm: ', '5:00 pm: ', '6:00 pm: ', '7:00 pm: ', 'Total by Location'];
 var place = [];
 var container = document.getElementById('container');
-///////// trying to put in addstore funciton
+
 var form = document.getElementById('addStoreForm');
-
-function NewStore(storeInfo, minDaily, maxDaily, avgSalesPerCust) {
-  this.nameOfStore = storeInfo;
-  this.minGuestCount = minDaily;
-  this.maxGuestCount = maxDaily;
-  this.avgPerCust = avgSalesPerCust;
-}
-
-NewStore.counter = 0;
-/// Perhaps a separate prototype for each set of data??
-NewStore.prototype.render = function () {
-  var tbody = document.getElementById('storeInfo');
-  var row = document.createElement('tr');
-  tbody.appendChild(row);
-
-  var nameTD = document.createElement('td');
-  row.appendChild(nameTD);
-  nameTD.textContent = this.name;
-
-  var rankTD = document.createElement('td');
-  row.appendChild(rankTD);
-  rankTD.textContent = this.rank;
-};
-
-function submitHandler() {
-  event.preventDefault();
-  console.log('INPUT NAME : ', event.target);
-  console.log('event.target');
-}
 
 form.addEventListener('submit', submitHandler);
 
-//////////////
+function submitHandler(event) {
+  event.preventDefault();
+  var name = event.target.storeStore.value;
+  var min = event.target.storeMin.value;
+  var max = event.target.storeMax.value;
+  var cookiesPerCust = event.target.storeCookiesPerCust.value;
 
+  place.push(new Store(name, min, max, cookiesPerCust));
+  updateFooter();
+  event.target.reset();
+}
 
 function generateHeader() {
   var headerRow = addElement('tr', container);
@@ -46,24 +26,28 @@ function generateHeader() {
     addElement('th', headerRow, time[i]);
   }
 }
+//// check on footer output
 function generateFooter() {
-  addElement('td', container, 'Hourly Total');
+  var footerRow = addElement('tr', container);
+  footerRow.setAttribute('id', 'footer');
+  addElement('th', footerRow, 'Total');
   for (var j = 0; j < time.length - 1; j++) {
-    addElement('td', container, getTotalsForFooter(j));
+    addElement('td', footerRow, getTotalsForFooter(j));
   }
-  addElement('td', container, getGrandTotal());
+  addElement('td', footerRow, getGrandTotal());
 }
+
 function getTotalsForFooter(hour) {
   var hourlyTotal = 0;
   for (var k = 0; k < place.length; k++) {
-    hourlyTotal = hourlyTotal + place[k].sales[hour];
+    hourlyTotal += place[k].sales[hour];
   }
   return hourlyTotal;
 }
 function getGrandTotal() {
   var grandTotal = 0;
-  for (var i = 0; i < place.length; i++) {
-    grandTotal = grandTotal + place[i].totalSales;
+  for (var l = 0; l < place.length; l++) {
+    grandTotal += place[l].totalSales;
   }
   return grandTotal;
 }
@@ -76,7 +60,6 @@ function addElement(tag, container, text) {
 function randomInRange(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
-
 function Store(name, min, max, cookiesPerCust) {
   this.name = name;
   this.min = min;
@@ -95,7 +78,7 @@ Store.prototype.getSalesData = function () {
 };
 Store.prototype.render = function () {
   var newRow = addElement('tr', container);
-  addElement('td', newRow, this.name);
+  addElement('th', newRow, this.name);
   for (var i = 0; i < this.sales.length; i++) {
     addElement('td', newRow, this.sales[i]);
   }
@@ -104,7 +87,7 @@ Store.prototype.render = function () {
 Store.prototype.getTotalSales = function () {
   var totalSales = 0;
   for (var i = 0; i < this.sales.length; i++) {
-    totalSales = totalSales + this.sales[i];
+    totalSales += this.sales[i];
   }
   return totalSales;
 };
@@ -116,3 +99,13 @@ place.push(new Store('Dubai', 11, 38, 3.7));
 place.push(new Store('Paris', 20, 38, 2.3));
 place.push(new Store('Lima', 2, 16, 4.6));
 generateFooter();
+
+function updateFooter() {
+  var footer = document.getElementById('footer');
+  var cells = footer.firstElementChild;
+  while (cells) {
+    footer.removeChild(cells);
+    cells = footer.firstElementChild;
+  }
+  generateFooter();
+}

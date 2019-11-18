@@ -23,4 +23,9 @@ h1 {
   font-family: 'Literata', serif;
   text-align: center;
   color: green;
+  font-size: xx-large;
+}
+ul {
+  font-size: x-large;
+  color: green;
 }

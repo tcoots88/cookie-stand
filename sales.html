@@ -10,10 +10,24 @@
 
 <body>
   <h1>Sales Data for Pat's Salmon Cookies</h1>
+  <a href="index.html">Home Page</a> |
   <img src="salmon.png" alt="salmon" class="marginauto">
   <table id='container'>
   </table>
-  
+  <form id="addStoreForm">
+    <legend>Add Store</legend>
+        <label for="storeStore">Location name</label>
+        <input name="storeStore" type="text" required />
+        <label for="storeMin">Min Daily Customers</label>
+        <input name="storeMin" type="number" required/>
+        <label for="storeMax">Max Daily Customers</label>
+        <input name="storeMax" type="number" required/>
+        <label for="storeCookiesPerCust">Average Sales Per Customer</label>
+        <input name="storeCookiesPerCust" type="number" step="any" required/>
+        <button type="submit">Submit</button>
+        <input type="reset"></button>
+    </fieldset>
+</form>
   <script src="app/app.js"></script>
 </body>
 
