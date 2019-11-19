@@ -104,8 +104,8 @@ function updateFooter() {
   var footer = document.getElementById('footer');
   var cells = footer.firstElementChild;
   while (cells) {
-    footer.removeChild(cells);
+    footer.parentNode.removeChild(footer);
     cells = footer.firstElementChild;
+    generateFooter();
   }
-  generateFooter();
 }
